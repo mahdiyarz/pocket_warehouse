@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:pocket_warehouse/presentation/extensions/space_xy.dart';
+import 'package:flutter/services.dart';
 
+import '../../../extensions/space_xy.dart';
 import '../../../resources/my_style.dart';
 
 class TitlePanel extends StatelessWidget {
@@ -19,10 +20,7 @@ class TitlePanel extends StatelessWidget {
     return Container(
       width: width,
       height: width * .52,
-      padding: const EdgeInsets.symmetric(
-        vertical: 15,
-        horizontal: 20,
-      ),
+      padding: const EdgeInsets.all(5),
       margin: const EdgeInsets.symmetric(
         vertical: 5,
         horizontal: 8,
@@ -36,25 +34,51 @@ class TitlePanel extends StatelessWidget {
           bottomRight: Radius.circular(35),
         ),
       ),
-      child: Column(
+      child: Stack(
         children: [
-          15.spaceY,
-          Text(
-            title,
-            style: AppTextStyle.getBoldStyle(
-              color: Theme.of(context).colorScheme.primary,
-              fontSize: 19,
+          Positioned(
+            right: 0,
+            top: 0,
+            child: IconButton(
+              color: Theme.of(context).colorScheme.surface.withOpacity(.7),
+              onPressed: () => SystemNavigator.pop(),
+              icon: const Icon(Icons.close_rounded),
             ),
           ),
-          3.spaceY,
-          Text(
-            subTitle ?? '',
-            style: AppTextStyle.getMediumStyle(
-              color: Theme.of(context)
-                  .colorScheme
-                  .onPrimaryContainer
-                  .withOpacity(.7),
-              fontSize: 14,
+          Positioned(
+            left: 0,
+            top: 0,
+            child: IconButton(
+              color: Theme.of(context).colorScheme.surface.withOpacity(.7),
+              onPressed: () => Scaffold.of(context).openDrawer(),
+              icon: const Icon(Icons.menu_rounded),
+            ),
+          ),
+          SizedBox(
+            width: double.infinity,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                15.spaceY,
+                Text(
+                  title,
+                  style: AppTextStyle.getBoldStyle(
+                    color: Theme.of(context).colorScheme.primary,
+                    fontSize: 19,
+                  ),
+                ),
+                3.spaceY,
+                Text(
+                  subTitle ?? '',
+                  style: AppTextStyle.getMediumStyle(
+                    color: Theme.of(context)
+                        .colorScheme
+                        .onPrimaryContainer
+                        .withOpacity(.7),
+                    fontSize: 14,
+                  ),
+                ),
+              ],
             ),
           ),
         ],
